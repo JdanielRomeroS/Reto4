@@ -1,0 +1,20 @@
+package Enums;
+
+public enum Genero {
+	JAZZ,
+	BLUES,
+	SOUL,
+	POP,
+	ROCK,
+	COUNTRY,
+	DISCO,
+	TECHNO,
+	REGGAE,
+	SALSA,
+	FLAMENCO,
+	RANCHERA,
+	RAP,
+	REGGETON,
+	METAL,
+	FUNK;
+}
