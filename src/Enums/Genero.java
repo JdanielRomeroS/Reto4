@@ -16,5 +16,6 @@ public enum Genero {
 	RAP,
 	REGGETON,
 	METAL,
-	FUNK;
+	FUNK,
+	ELECTRONICA;
 }
