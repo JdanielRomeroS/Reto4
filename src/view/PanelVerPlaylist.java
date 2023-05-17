@@ -34,8 +34,9 @@ public class PanelVerPlaylist extends JPanel {
 	 private JTextField textField_1;
 	/**
 	 * Create the panel.
+	 * @param vieneDeVerUsuario 
 	 */
-	public PanelVerPlaylist(Controller controller, User user, Playlist playlistSeleccionada) {
+	public PanelVerPlaylist(Controller controller, User user, Playlist playlistSeleccionada, Playlist playlistSeleccionada2) {
 		setLayout(null);
 		
 		List<Song> ListaCancionesPlaylist = controller.getListSongsByPlaylist(playlistSeleccionada.getId());
@@ -77,7 +78,7 @@ public class PanelVerPlaylist extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		Component component = (Component) e.getSource();
                 App app = (App) SwingUtilities.getRoot(component);
-                app.cambiarPanelDescubrir(user, 0);
+                app.cambiarPanelDescubrir(user, null);
         		
         	}
         });
@@ -129,9 +130,27 @@ public class PanelVerPlaylist extends JPanel {
         btnAddSong.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		Component component = (Component) e.getSource();
-		        App app = (App) SwingUtilities.getRoot(component);
-		        app.cambiarPanelDescubrir(user,playlistSeleccionada.getId());
+        		
+        		if(user.getId()==playlistSeleccionada.getId()&&playlistSeleccionada2==null) {
+        			Component component = (Component) e.getSource();
+    		        App app = (App) SwingUtilities.getRoot(component);
+    		        app.cambiarPanelDescubrir(user,playlistSeleccionada);
+        		}else {
+        			int row = jTable.getSelectedRow();
+	                if (row != -1) {
+	                	int result = JOptionPane.showConfirmDialog(btnAddSong, "estas seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+						if(result == 0) {
+	                		Song songSeleccionada = ListaCancionesPlaylist.get(jTable.convertRowIndexToModel(row));
+	                		// TODO añadir la cancion a la playlist
+	                		System.out.println("se esta añadiendo la cancion " + songSeleccionada.getNombre());
+	                	}
+	                }else {
+	                	JOptionPane.showMessageDialog(null, "Selecciona alguna cancion para añadirla a la playlist");
+	        			
+	                }
+        		}
+        		
+        		
         		
         	}
         });

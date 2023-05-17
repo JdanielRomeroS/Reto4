@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -270,7 +272,38 @@ public class Controller implements IController{
 		return songs;
 	}
 
-	
+	public boolean validateEmail(String email) {
+		String emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+	}
+
+	public static boolean verificarComplejidadContrasena(String contrasena) {
+	    int longitudMinima = 8;
+	    boolean tieneMayuscula = false;
+	    boolean tieneMinuscula = false;
+	    boolean tieneDigito = false;
+
+	    if (contrasena.length() < longitudMinima) {
+	        return false;
+	    }
+
+	    for (char c : contrasena.toCharArray()) {
+	        if (Character.isUpperCase(c))
+	            tieneMayuscula = true;
+	        else if (Character.isLowerCase(c))
+	            tieneMinuscula = true;
+	        else if (Character.isDigit(c))
+	            tieneDigito = true;
+	    }
+
+	    return tieneMayuscula && tieneMinuscula && tieneDigito;
+	}
+
+	public static boolean compararContrasenas(String contrasena1, String contrasena2) {
+	    return contrasena1.equals(contrasena2);
+	}
 
 
 	 

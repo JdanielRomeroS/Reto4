@@ -76,7 +76,7 @@ public class PanelHome extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		Component component = (Component) e.getSource();
 		        App app = (App) SwingUtilities.getRoot(component);
-		        app.cambiarPanelDescubrir(user, 0);
+		        app.cambiarPanelDescubrir(user, null);
         	}
         });
         btnNSearchGlobal.setBounds(230, 265, 210, 35);
@@ -120,7 +120,7 @@ public class PanelHome extends JPanel {
                     int idPlaylistSeleccionada = playlistSeleccionada.getId();
                     Component component = (Component) e.getSource();
     		        App app = (App) SwingUtilities.getRoot(component);
-    		        app.cambiarPanelVerPlaylist(user, playlistSeleccionada);
+    		        app.cambiarPanelVerPlaylist(user, playlistSeleccionada, null);
                     
                     
                 }else {

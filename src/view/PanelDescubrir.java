@@ -34,9 +34,9 @@ public class PanelDescubrir extends JPanel {
 	 private JTextField textField_1;
 	/**
 	 * Create the panel.
-	 * @param id 
+	 * @param playlistSeleccionada.getId() 
 	 */
-	public PanelDescubrir(Controller controller, User user, int id) {
+	public PanelDescubrir(Controller controller, User user, Playlist playlistSeleccionada) {
 		 setLayout(null);
 
 	        GestorPlaylist listaTodasList = controller.getAllPlaylist();
@@ -83,7 +83,7 @@ public class PanelDescubrir extends JPanel {
 	        	public void actionPerformed(ActionEvent e) {
 	        		Component component = (Component) e.getSource();
 	                App app = (App) SwingUtilities.getRoot(component);
-	                app.cambiarPanelDescubrir(user, id);
+	                app.cambiarPanelDescubrir(user, playlistSeleccionada);
 	        		
 	        	}
 	        });
@@ -139,12 +139,12 @@ public class PanelDescubrir extends JPanel {
 	                		// TODO falta mostrar la letra de la cancion
 	                		
 	                	}else if (tipo.equals("Playlist")) {
-	                		Playlist playlistSeleccionada = listaPlaylist.get(jTable.convertRowIndexToModel(row)-listaSongs.size());
-	                		app.cambiarPanelVerPlaylist(user, playlistSeleccionada);
+	                		Playlist playlistSeleccionadaX = listaPlaylist.get(jTable.convertRowIndexToModel(row)-listaSongs.size());
+	                		app.cambiarPanelVerPlaylist(user, playlistSeleccionadaX, playlistSeleccionada);
 	                		
 	                	}else {
 	                		User userSeleccionada = listaUsers.get((jTable.convertRowIndexToModel(row)-listaSongs.size())-listaPlaylist.size());
-	                		app.cambiarPanelVerUsuario(user, userSeleccionada);
+	                		app.cambiarPanelVerUsuario(user, userSeleccionada, playlistSeleccionada);
 	                	}
 	                    
 	                }else {
@@ -162,7 +162,8 @@ public class PanelDescubrir extends JPanel {
 	        		int row = jTable.getSelectedRow();
 	                if (row != -1) {
 	                	
-	                	if (id > 0) { //hay una playlist selecionada 
+	                	
+						if (playlistSeleccionada!=null) { //hay una playlist selecionada 
 	                		
 							String tipo = jTable.getValueAt(row, 1).toString();
 		                	if(tipo.equals("Song")) {

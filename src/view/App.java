@@ -61,20 +61,20 @@ public class App extends JFrame {
 		getContentPane().revalidate();
 	}
 	
-	public void cambiarPanelDescubrir(User user, int id) {
+	public void cambiarPanelDescubrir(User user, Playlist playlistSeleccionada) {
 		setBounds(100, 100, 450, 330);
 		getContentPane().removeAll();
 		getContentPane().invalidate();
-		PanelDescubrir panelDescubrir = new PanelDescubrir(controller, user, id);
+		PanelDescubrir panelDescubrir = new PanelDescubrir(controller, user, playlistSeleccionada);
 		getContentPane().add(panelDescubrir);
 		getContentPane().revalidate();
 	}
 	
-	public void cambiarPanelVerPlaylist(User user, Playlist playlistSeleccionada) {
+	public void cambiarPanelVerPlaylist(User user, Playlist playlistSeleccionada, Playlist playlistSeleccionada2) {
 		setBounds(100, 100, 450, 330);
 		getContentPane().removeAll();
 		getContentPane().invalidate();
-		PanelVerPlaylist panelVerPlaylist = new PanelVerPlaylist(controller, user, playlistSeleccionada);
+		PanelVerPlaylist panelVerPlaylist = new PanelVerPlaylist(controller, user, playlistSeleccionada, playlistSeleccionada2);
 		getContentPane().add(panelVerPlaylist);
 		getContentPane().revalidate();
 	}
@@ -88,12 +88,21 @@ public class App extends JFrame {
 		getContentPane().revalidate();
 	}
 
-	public void cambiarPanelVerUsuario(User user, User userSeleccionada) {
+	public void cambiarPanelVerUsuario(User user, User userSeleccionada, Playlist playlistSeleccionada) {
 		setBounds(100, 100, 450, 330);
 		getContentPane().removeAll();
 		getContentPane().invalidate();
-		PanelVerUsuario panelVerUsuario = new PanelVerUsuario(controller, user, userSeleccionada);
+		PanelVerUsuario panelVerUsuario = new PanelVerUsuario(controller, user, userSeleccionada, playlistSeleccionada);
 		getContentPane().add(panelVerUsuario);
+		getContentPane().revalidate();
+	}
+
+	public void cambiarPanelResgister() {
+		setBounds(100, 100, 450, 330);
+		getContentPane().removeAll();
+		getContentPane().invalidate();
+		PanelRegister panelRegister = new PanelRegister(controller);
+		getContentPane().add(panelRegister);
 		getContentPane().revalidate();
 	}
 }

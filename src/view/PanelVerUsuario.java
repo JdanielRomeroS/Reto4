@@ -38,8 +38,9 @@ public class PanelVerUsuario extends JPanel {
 	 * @param userSeleccionada 
 	 * @param user 
 	 * @param controller 
+	 * @param playlistSeleccionada 
 	 */
-	public PanelVerUsuario(Controller controller, User user, User userSeleccionada) {
+	public PanelVerUsuario(Controller controller, User user, User userSeleccionada, Playlist playlistSeleccionada) {
 		setLayout(null);
 		
 		
@@ -100,7 +101,7 @@ public class PanelVerUsuario extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		Component component = (Component) e.getSource();
 		        App app = (App) SwingUtilities.getRoot(component);
-		        app.cambiarPanelDescubrir(user, 0);
+		        app.cambiarPanelDescubrir(user, null);
         	}
         });
         btnNSearchGlobal.setBounds(230, 265, 210, 35);
@@ -151,11 +152,11 @@ public class PanelVerUsuario extends JPanel {
 	                		
 	                	}else{
 	                		Playlist playlistSeleccionada = listaPlaylist.get(jTable.convertRowIndexToModel(row)-listaCanciones.size());
-	                		app.cambiarPanelVerPlaylist(user, playlistSeleccionada);
+	                		app.cambiarPanelVerPlaylist(user, playlistSeleccionada, playlistSeleccionada);
 	                	}
                 	}else {
                 		Playlist playlistSeleccionada = listaPlaylist.get(jTable.convertRowIndexToModel(row));
-        		        app.cambiarPanelVerPlaylist(user, playlistSeleccionada);
+        		        app.cambiarPanelVerPlaylist(user, playlistSeleccionada, playlistSeleccionada);
                 	}
                 }else {
                 	JOptionPane.showMessageDialog(null, "Selecciona alguna playlist");

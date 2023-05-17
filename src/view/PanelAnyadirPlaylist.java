@@ -108,7 +108,7 @@ public class PanelAnyadirPlaylist extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		Component component = (Component) e.getSource();
 		        App app = (App) SwingUtilities.getRoot(component);
-		        app.cambiarPanelDescubrir(user, 0);
+		        app.cambiarPanelDescubrir(user, null);
         	}
         });
         btnNSearchGlobal.setBounds(230, 265, 210, 35);

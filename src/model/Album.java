@@ -11,6 +11,15 @@ public class Album extends Playlist{
 	
 	public Album() {
 	}
+	
+	
+	
+	public Album(int id, String fecha) {
+		this.id = id;
+		this.fecha = fecha;
+	}
+
+
 
 	public Album(int id, String nombre, String anoLanzamiento, String descripcion, int duracion, List<Song> song,
 			int iduser, Genero genero, String fecha, List<Artist> artista) {

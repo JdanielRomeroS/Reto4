@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -15,6 +16,7 @@ import model.User;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 
 public class PanelLogin extends JPanel {
@@ -31,6 +33,15 @@ public class PanelLogin extends JPanel {
 		lbTitle.setBounds(189, 27, 61, 16);
 		add(lbTitle);
 		
+		ImageIcon icono = new ImageIcon("imagenes/lobo.png");
+		Image imagenOriginal = icono.getImage();
+		int nuevoAncho = 80;
+		int nuevoAlto = 80;
+		Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+		JLabel labelImagen = new JLabel(new ImageIcon(imagenRedimensionada));
+		labelImagen.setBounds(15, 10, nuevoAncho, nuevoAlto);
+		add(labelImagen);
+
 		JLabel lbMail = new JLabel("Mail");
 		lbMail.setBounds(126, 100, 61, 16);
 		add(lbMail);
@@ -88,6 +99,11 @@ public class PanelLogin extends JPanel {
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Component component = (Component) e.getSource();
+		        App app = (App) SwingUtilities.getRoot(component);
+		        app.cambiarPanelResgister();
+				
 			}
 		});
 		btnRegister.setBounds(157, 259, 117, 29);
