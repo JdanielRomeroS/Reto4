@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DAMusic>
+  <playlist>
+    <id>1</id>
+    <nombre>Mi playlist de rock</nombre>
+    <anoLanzamiento>2021-01-01</anoLanzamiento>
+    <descripcion>Una lista de reproducción con mis canciones favoritas de rock</descripcion>
+    <duracion>120</duracion>
+    <songs>
+      <song>
+        <id>1</id>
+        <nombre>Bohemian Rhapsody</nombre>
+        <duracion>354</duracion>
+        <genero>ROCK</genero>
+        <artists>
+          <artist>
+            <nombre>alfonso</nombre>
+          </artist>
+        </artists>
+      </song>
+      <song>
+        <id>2</id>
+        <nombre>Despacito</nombre>
+        <duracion>232</duracion>
+        <genero>REGGETON</genero>
+        <artists>
+          <artist>
+            <nombre>alfonso</nombre>
+          </artist>
+        </artists>
+      </song>
+    </songs>
+    <iduser>1</iduser>
+  </playlist>
+</DAMusic>

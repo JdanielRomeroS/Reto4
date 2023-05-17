@@ -17,6 +17,7 @@ public class Artist extends User {
 		this.fechaInicio = fechaInicio;
 	}
 
+	
 
 	public int getId() {
 		return id;

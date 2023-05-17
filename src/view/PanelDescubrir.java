@@ -34,8 +34,9 @@ public class PanelDescubrir extends JPanel {
 	 private JTextField textField_1;
 	/**
 	 * Create the panel.
+	 * @param id 
 	 */
-	public PanelDescubrir(Controller controller, User user) {
+	public PanelDescubrir(Controller controller, User user, int id) {
 		 setLayout(null);
 
 	        GestorPlaylist listaTodasList = controller.getAllPlaylist();
@@ -53,7 +54,7 @@ public class PanelDescubrir extends JPanel {
 	        jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 	        scroll = new JScrollPane(jTable);
-	        scroll.setBounds(10, 59, 319, 153);
+	        scroll.setBounds(10, 59, 430, 153);
 	        add(scroll);
 
 	        JLabel lblNewLabel = new JLabel("Descubre");
@@ -82,7 +83,7 @@ public class PanelDescubrir extends JPanel {
 	        	public void actionPerformed(ActionEvent e) {
 	        		Component component = (Component) e.getSource();
 	                App app = (App) SwingUtilities.getRoot(component);
-	                app.cambiarPanelDescubrir(user);
+	                app.cambiarPanelDescubrir(user, id);
 	        		
 	        	}
 	        });
@@ -125,23 +126,26 @@ public class PanelDescubrir extends JPanel {
 	        btnNewButton.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		
-	        		
+	        		Component component = (Component) e.getSource();
+			        App app = (App) SwingUtilities.getRoot(component);
+			        
 	        		int row = jTable.getSelectedRow();
 	                if (row != -1) {
-	                	int id;
+	                	
 	                	String tipo = jTable.getValueAt(row, 1).toString();
 	                	
 	                	if(tipo.equals("Song")) {
 	                		Song songSeleccionada = listaSongs.get(jTable.convertRowIndexToModel(row));
-	                		id = songSeleccionada.getId();     	
+	                		// TODO falta mostrar la letra de la cancion
+	                		
 	                	}else if (tipo.equals("Playlist")) {
 	                		Playlist playlistSeleccionada = listaPlaylist.get(jTable.convertRowIndexToModel(row)-listaSongs.size());
-	                		id = playlistSeleccionada.getId();
+	                		app.cambiarPanelVerPlaylist(user, playlistSeleccionada);
+	                		
 	                	}else {
 	                		User userSeleccionada = listaUsers.get((jTable.convertRowIndexToModel(row)-listaSongs.size())-listaPlaylist.size());
-	                		id = userSeleccionada.getId();
+	                		app.cambiarPanelVerUsuario(user, userSeleccionada);
 	                	}
-	                	System.out.println(id);
 	                    
 	                }else {
 	                	JOptionPane.showMessageDialog(null, "Selecciona alguna playlist");
@@ -150,6 +154,44 @@ public class PanelDescubrir extends JPanel {
 	        });
 	        btnNewButton.setBounds(103, 224, 117, 29);
 	        add(btnNewButton);
+	        
+	        JButton btnNewButton_1 = new JButton("Add to Playlist");
+	        btnNewButton_1.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		
+	        		int row = jTable.getSelectedRow();
+	                if (row != -1) {
+	                	
+	                	if (id > 0) { //hay una playlist selecionada 
+	                		
+							String tipo = jTable.getValueAt(row, 1).toString();
+		                	if(tipo.equals("Song")) {
+		                		int result = JOptionPane.showConfirmDialog(btnNewButton_1, "estas seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+								if(result == 0) {
+			                		Song songSeleccionada = listaSongs.get(jTable.convertRowIndexToModel(row));
+			                		// TODO añadir la cancion a la playlist
+			                		System.out.println("se esta añadiendo la cancion " + songSeleccionada.getNombre());
+			                	}
+		                	}else {
+		                		JOptionPane.showMessageDialog(null, "Solo puedes añadir canciones a la Playlist");
+		                	}
+								
+		        		}else { //no hay nunguna playlis seleccionada
+		        			JOptionPane.showMessageDialog(null, "A que playlist la deseañas añadir?");
+		        			// TODO llevar a la seleccion de playlist  
+		        		}
+	                	
+	                }else {
+	                	JOptionPane.showMessageDialog(null, "Selecciona alguna cancion");
+	                }
+	        		
+	        		
+	        		
+	        		
+	        	}
+	        });
+	        btnNewButton_1.setBounds(230, 224, 117, 29);
+	        add(btnNewButton_1);
 	       
 	    }
 

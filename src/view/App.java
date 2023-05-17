@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
+import model.Playlist;
 import model.User;
 
 public class App extends JFrame {
@@ -38,9 +39,7 @@ public class App extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 350);
 		contentPane = (JPanel) getContentPane();
-		controller.setAllUser();
-    	controller.setAllSong();
-    	controller.setAllPlaylist();
+
 		mostrarLogin();
 	}
 	
@@ -62,12 +61,39 @@ public class App extends JFrame {
 		getContentPane().revalidate();
 	}
 	
-	public void cambiarPanelDescubrir(User user) {
+	public void cambiarPanelDescubrir(User user, int id) {
 		setBounds(100, 100, 450, 330);
 		getContentPane().removeAll();
 		getContentPane().invalidate();
-		PanelDescubrir panelDescubrir = new PanelDescubrir(controller, user);
+		PanelDescubrir panelDescubrir = new PanelDescubrir(controller, user, id);
 		getContentPane().add(panelDescubrir);
+		getContentPane().revalidate();
+	}
+	
+	public void cambiarPanelVerPlaylist(User user, Playlist playlistSeleccionada) {
+		setBounds(100, 100, 450, 330);
+		getContentPane().removeAll();
+		getContentPane().invalidate();
+		PanelVerPlaylist panelVerPlaylist = new PanelVerPlaylist(controller, user, playlistSeleccionada);
+		getContentPane().add(panelVerPlaylist);
+		getContentPane().revalidate();
+	}
+
+	public void cambiarPanelAnyadirPlaylist(User user) {
+		setBounds(100, 100, 450, 330);
+		getContentPane().removeAll();
+		getContentPane().invalidate();
+		PanelAnyadirPlaylist panelAnyadirPlaylist = new PanelAnyadirPlaylist(controller, user);
+		getContentPane().add(panelAnyadirPlaylist);
+		getContentPane().revalidate();
+	}
+
+	public void cambiarPanelVerUsuario(User user, User userSeleccionada) {
+		setBounds(100, 100, 450, 330);
+		getContentPane().removeAll();
+		getContentPane().invalidate();
+		PanelVerUsuario panelVerUsuario = new PanelVerUsuario(controller, user, userSeleccionada);
+		getContentPane().add(panelVerUsuario);
 		getContentPane().revalidate();
 	}
 }

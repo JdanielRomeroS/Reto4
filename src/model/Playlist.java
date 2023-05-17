@@ -46,6 +46,17 @@ public class Playlist {
 		this.genero = genero;
 	}
 
+	
+	public Playlist(String nombre, String descripcion, int duracion, int iduser, Genero genero) {
+		super();
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.duracion = duracion;
+		this.iduser = iduser;
+		this.genero = genero;
+	}
+	
+
 	public int getId() {
 		return id;
 	}

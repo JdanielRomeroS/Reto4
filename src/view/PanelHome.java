@@ -76,7 +76,7 @@ public class PanelHome extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		Component component = (Component) e.getSource();
 		        App app = (App) SwingUtilities.getRoot(component);
-		        app.cambiarPanelDescubrir(user);
+		        app.cambiarPanelDescubrir(user, 0);
         	}
         });
         btnNSearchGlobal.setBounds(230, 265, 210, 35);
@@ -118,25 +118,61 @@ public class PanelHome extends JPanel {
                 if (row != -1) {
                     Playlist playlistSeleccionada = listaPlaylist.get(jTable.convertRowIndexToModel(row));
                     int idPlaylistSeleccionada = playlistSeleccionada.getId();
-                    System.out.println("ID de la playlist seleccionada: " + idPlaylistSeleccionada);
+                    Component component = (Component) e.getSource();
+    		        App app = (App) SwingUtilities.getRoot(component);
+    		        app.cambiarPanelVerPlaylist(user, playlistSeleccionada);
+                    
+                    
                 }else {
                 	JOptionPane.showMessageDialog(null, "Selecciona alguna playlist");
                 }
             }
         });
-        btnVer.setBounds(102, 224, 117, 29);
+        btnVer.setBounds(37, 224, 129, 29);
         add(btnVer);
         
         JButton btnAddPlaylist = new JButton("Add Playlist");
         btnAddPlaylist.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		//TODO esto despues de implementar la busqueda General
+        		Component component = (Component) e.getSource();
+		        App app = (App) SwingUtilities.getRoot(component);
+		        app.cambiarPanelAnyadirPlaylist(user);
         		
         	}
         });
-        btnAddPlaylist.setBounds(230, 224, 117, 29);
+        btnAddPlaylist.setBounds(160, 224, 129, 29);
         add(btnAddPlaylist);
+        
+        JButton btnRemove = new JButton("Remove Playlist");
+        btnRemove.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		int row = jTable.getSelectedRow();
+                if (row != -1) {
+                    Playlist playlistSeleccionada = listaPlaylist.get(jTable.convertRowIndexToModel(row));
+                    int result = JOptionPane.showConfirmDialog(btnRemove, "estas seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+					if(result == 0) {
+						
+						if(controller.deletePlaylist(playlistSeleccionada)) {
+							Controller controller = new Controller();
+							Component component = (Component) e.getSource();
+		                    App app = (App) SwingUtilities.getRoot(component);
+		                    app.cambiarPanelHome(user);
+							JOptionPane.showMessageDialog(null, "Se elimino correctamente la Playlist", "Anuncio", JOptionPane.INFORMATION_MESSAGE);
+							
+							
+						}
+						
+					}
+                }else {
+                	JOptionPane.showMessageDialog(null, "Selecciona alguna playlist");
+                }
+        		
+        	}
+        });
+        btnRemove.setBounds(283, 224, 129, 29);
+        add(btnRemove);
     }
 
     private DefaultTableModel generarModelo(List<Playlist> listaPlaylist) {
