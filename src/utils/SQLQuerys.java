@@ -12,4 +12,6 @@ public class SQLQuerys {
 	
 	public static final String INSERT_PLAYLIST = "INSERT INTO playlist (nombre, anolanzamiento, genero, duracion, descripcion, id_usuario) VALUES (?, ?, ?, ?, ?, ?)";
 	public static final String DELETE_PLAYLIST = "DELETE FROM playlist WHERE id = ?";
+	public static final String INSERT_USER = "INSERT INTO usuario (nombre, correo, contrasena, tipo) VALUES (?, ?, ?, ?)";
+	public static final String INSERT_SONG_TO_PLAYLIST = "INSERT INTO playlist_cancion (id_playlist, id_cancion) VALUES (?, ?)";
 }

@@ -78,5 +78,58 @@ public class UserRepository {
 		}
 		return response;
 	}
+
+	public static boolean addUser(User user) {
+		boolean isCreated = false ;
+		String sql = SQLQuerys.INSERT_USER;
+		
+		Connection connection = null;
+		ResultSet resultSet = null;
+		PreparedStatement  preparedStatement  = null;
+		try {
+			Class.forName(DBUtils.DRIVER);
+			connection = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASS);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, user.getNombre());
+			preparedStatement.setString(2, user.getCorreo());
+			preparedStatement.setString(3, user.getContrasenia());
+			preparedStatement.setString(4, user.getTipo());
+			
+			preparedStatement.executeUpdate();	
+			isCreated = true;
+			
+		}catch (SQLException sqle) {  
+			System.out.println("Error con la BBDD - " + sqle.getMessage());
+		} catch(Exception e){ 
+			e.printStackTrace();
+			System.out.println("Error generico - " + e.getMessage());
+		} finally {
+			// Cerramos al reves de como las abrimos
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch(Exception e){ 
+				// No hace falta 
+			};
+			try {
+				if (preparedStatement != null) { 
+					preparedStatement.close();
+				}
+			} catch(Exception e){ 
+				// No hace falta				
+			};
+			try {
+				if (connection != null) { 
+					connection.close();
+				}
+			} catch(Exception e){ 
+				// No hace falta
+			};					
+		}
+		
+		
+		return isCreated;
+	}
 	
 }

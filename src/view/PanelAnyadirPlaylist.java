@@ -119,7 +119,7 @@ public class PanelAnyadirPlaylist extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		Component component = (Component) e.getSource();
 		        App app = (App) SwingUtilities.getRoot(component);
-		        app.mostrarLogin();
+		        app.mostrarPanelDespedida(user);
         	}
         });
         btnLogout.setBounds(328, -2, 117, 29);

@@ -95,7 +95,7 @@ public class PanelDescubrir extends JPanel {
 	        	public void actionPerformed(ActionEvent e) {
 	        		Component component = (Component) e.getSource();
 			        App app = (App) SwingUtilities.getRoot(component);
-			        app.mostrarLogin();
+			        app.mostrarPanelDespedida(user);
 	        	}
 	        });
 	        btnLogout.setBounds(328, -2, 117, 29);
@@ -170,15 +170,25 @@ public class PanelDescubrir extends JPanel {
 		                		int result = JOptionPane.showConfirmDialog(btnNewButton_1, "estas seguro?", "Warning", JOptionPane.YES_NO_OPTION);
 								if(result == 0) {
 			                		Song songSeleccionada = listaSongs.get(jTable.convertRowIndexToModel(row));
-			                		// TODO añadir la cancion a la playlist
-			                		System.out.println("se esta añadiendo la cancion " + songSeleccionada.getNombre());
+			                		boolean esCreadted = controller.addSongToPlaylist(songSeleccionada, playlistSeleccionada);
+			                		if (esCreadted) {
+			                			JOptionPane.showMessageDialog(null, "se esta añadiendo la cancion " + songSeleccionada.getNombre() + " a la playlist " + playlistSeleccionada.getNombre());
+			                			Controller controller = new Controller();
+			                		}else {
+			                			JOptionPane.showMessageDialog(null, "no se puede repetir la cancion " + songSeleccionada.getNombre() + " en la playlist " + playlistSeleccionada.getNombre());
+			                			
+			                		}
 			                	}
 		                	}else {
 		                		JOptionPane.showMessageDialog(null, "Solo puedes añadir canciones a la Playlist");
 		                	}
 								
 		        		}else { //no hay nunguna playlis seleccionada
-		        			JOptionPane.showMessageDialog(null, "A que playlist la deseañas añadir?");
+		        			Song songSeleccionada = listaSongs.get(jTable.convertRowIndexToModel(row));
+		        			Component component = (Component) e.getSource();
+					        App app = (App) SwingUtilities.getRoot(component);
+					        app.cambiarPanelElegirPlaylist(user, songSeleccionada);
+		                	
 		        			// TODO llevar a la seleccion de playlist  
 		        		}
 	                	

@@ -3,11 +3,15 @@ package view;
 import javax.swing.JPanel;
 
 import controller.Controller;
+import model.User;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 public class PanelRegister extends JPanel {
@@ -63,7 +67,7 @@ public class PanelRegister extends JPanel {
 		add(textContrsena2);
 		textContrsena2.setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Register");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean isValid = controller.validateEmail(textCorreo.getText());
@@ -71,7 +75,26 @@ public class PanelRegister extends JPanel {
 				boolean sonIguales = controller.compararContrasenas(textContrsena.getText(), textContrsena2.getText());
 
 				if (isValid && esCompleja && sonIguales) {
-				    System.out.println("¡Felicidades!");
+					
+					User user = new User(textNombre.getText(), textCorreo.getText(), textContrsena.getText(), "basico");
+					boolean userCreado = controller.regitrarUsuario(user);
+					if(userCreado) {
+						Controller controller = new Controller();
+						Component component = (Component) e.getSource();
+				        App app = (App) SwingUtilities.getRoot(component);
+						int result = JOptionPane.showConfirmDialog(btnNewButton, "usuario registrado , quieres iniciar sesion automaticamente?", "Warning", JOptionPane.YES_NO_OPTION);
+						if(result == 0) {
+							User userLogin = controller.getUserbyCredentials(user.getCorreo(), user.getContrasenia());
+							app.cambiarPanelHome(userLogin);
+						}else {
+							
+					        app.mostrarLogin();
+						}
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "Intentalo de nuevo ");
+					}
+					
 				} else if (!isValid) {
 				    JOptionPane.showMessageDialog(null, "El correo debe ser válido");
 				} else if (!esCompleja) {
@@ -83,6 +106,17 @@ public class PanelRegister extends JPanel {
 		});
 		btnNewButton.setBounds(176, 228, 117, 29);
 		add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Atras");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Component component = (Component) e.getSource();
+		        App app = (App) SwingUtilities.getRoot(component);
+		        app.mostrarLogin();
+			}
+		});
+		btnNewButton_1.setBounds(176, 265, 117, 29);
+		add(btnNewButton_1);
 		
 		
 		

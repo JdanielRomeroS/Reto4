@@ -19,6 +19,15 @@ public class User {
 		this.tipo = tipo;
 	}
 
+	
+	public User(String nombre, String correo, String contrasenia, String tipo) {
+		super();
+		this.nombre = nombre;
+		this.correo = correo;
+		this.contrasenia = contrasenia;
+		this.tipo = tipo;
+	}
+
 	public User(int id, String nombre, String correo, String contrasenia, String tipo) {
 		this.id = id;
 		this.nombre = nombre;

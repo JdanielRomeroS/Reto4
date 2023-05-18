@@ -1,13 +1,16 @@
 package view;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
 import model.Playlist;
+import model.Song;
 import model.User;
 
 public class App extends JFrame {
@@ -105,4 +108,26 @@ public class App extends JFrame {
 		getContentPane().add(panelRegister);
 		getContentPane().revalidate();
 	}
+
+	public void cambiarPanelElegirPlaylist(User user, Song songSeleccionada) {
+		setBounds(100, 100, 450, 330);
+		getContentPane().removeAll();
+		getContentPane().invalidate();
+		PanelElegirPlaylist panelElegirPlaylist = new PanelElegirPlaylist(controller, user, songSeleccionada);
+		getContentPane().add(panelElegirPlaylist);
+		getContentPane().revalidate();
+	}
+
+	public void mostrarPanelDespedida(User user) {
+		
+        setBounds(100, 100, 450, 330);
+		getContentPane().removeAll();
+		getContentPane().invalidate();
+		PanelDespedida panelDespedida = new PanelDespedida(user);
+		getContentPane().add(panelDespedida);
+		getContentPane().revalidate();
+        
+	}
+
+	
 }

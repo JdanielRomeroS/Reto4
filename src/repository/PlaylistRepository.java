@@ -13,6 +13,7 @@ import Enums.Genero;
 import model.Album;
 import model.Playlist;
 import model.PlaylistCancion;
+import model.Song;
 import utils.DBUtils;
 import utils.SQLQuerys;
 
@@ -297,6 +298,58 @@ public class PlaylistRepository {
 	        }
 	    }
 	    return isCreated;
+	}
+
+
+	public static boolean addSongToPlaylist(Song songSeleccionada, Playlist playlistSeleccionada) {
+		boolean isCreated = false ;
+		String sql = SQLQuerys.INSERT_SONG_TO_PLAYLIST;
+		
+		Connection connection = null;
+		ResultSet resultSet = null;
+		PreparedStatement  preparedStatement  = null;
+		try {
+			Class.forName(DBUtils.DRIVER);
+			connection = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASS);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, playlistSeleccionada.getId());
+			preparedStatement.setInt(2, songSeleccionada.getId());
+			
+			preparedStatement.executeUpdate();	
+			isCreated = true;
+
+		}catch (SQLException sqle) {  
+			System.out.println("Error con la BBDD - " + sqle.getMessage());
+		} catch(Exception e){ 
+			e.printStackTrace();
+			System.out.println("Error generico - " + e.getMessage());
+		} finally {
+			// Cerramos al reves de como las abrimos
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch(Exception e){ 
+				// No hace falta 
+			};
+			try {
+				if (preparedStatement != null) { 
+					preparedStatement.close();
+				}
+			} catch(Exception e){ 
+				// No hace falta				
+			};
+			try {
+				if (connection != null) { 
+					connection.close();
+				}
+			} catch(Exception e){ 
+				// No hace falta
+			};					
+		}
+		
+		
+		return isCreated;
 	}
 
 

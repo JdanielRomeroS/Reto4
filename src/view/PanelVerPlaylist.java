@@ -88,9 +88,11 @@ public class PanelVerPlaylist extends JPanel {
         JButton btnLogout = new JButton("Logout");
         btnLogout.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
+        		
         		Component component = (Component) e.getSource();
 		        App app = (App) SwingUtilities.getRoot(component);
-		        app.mostrarLogin();
+		        app.mostrarPanelDespedida(user);
         	}
         });
         btnLogout.setBounds(328, -2, 117, 29);
@@ -131,7 +133,7 @@ public class PanelVerPlaylist extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		
         		
-        		if(user.getId()==playlistSeleccionada.getId()&&playlistSeleccionada2==null) {
+        		if(user.getId()==playlistSeleccionada.getIdUser()&&playlistSeleccionada2==null) {
         			Component component = (Component) e.getSource();
     		        App app = (App) SwingUtilities.getRoot(component);
     		        app.cambiarPanelDescubrir(user,playlistSeleccionada);
@@ -141,8 +143,15 @@ public class PanelVerPlaylist extends JPanel {
 	                	int result = JOptionPane.showConfirmDialog(btnAddSong, "estas seguro?", "Warning", JOptionPane.YES_NO_OPTION);
 						if(result == 0) {
 	                		Song songSeleccionada = ListaCancionesPlaylist.get(jTable.convertRowIndexToModel(row));
-	                		// TODO añadir la cancion a la playlist
-	                		System.out.println("se esta añadiendo la cancion " + songSeleccionada.getNombre());
+	                		boolean esCreadted = controller.addSongToPlaylist(songSeleccionada, playlistSeleccionada2);
+	                		if (esCreadted) {
+	                			Controller controller = new Controller();
+	                			JOptionPane.showMessageDialog(null, "se esta añadiendo la cancion " + songSeleccionada.getNombre() + " a la playlist " + playlistSeleccionada2.getNombre());
+	    	        			
+	                		}else {
+	                			JOptionPane.showMessageDialog(null, "no se puede repetir la cancion " + songSeleccionada.getNombre() + " en la playlist " + playlistSeleccionada.getNombre());
+	                			
+	                		}
 	                	}
 	                }else {
 	                	JOptionPane.showMessageDialog(null, "Selecciona alguna cancion para añadirla a la playlist");
@@ -161,7 +170,6 @@ public class PanelVerPlaylist extends JPanel {
         btnExportXML.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		controller.generarXML(playlistSeleccionada,ListaCancionesPlaylist);
-
         		
         	}
         });

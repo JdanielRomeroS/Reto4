@@ -112,7 +112,7 @@ public class PanelVerUsuario extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		Component component = (Component) e.getSource();
 		        App app = (App) SwingUtilities.getRoot(component);
-		        app.mostrarLogin();
+		        app.mostrarPanelDespedida(user);
         	}
         });
         btnLogout.setBounds(328, -2, 117, 29);
@@ -151,12 +151,12 @@ public class PanelVerUsuario extends JPanel {
 	                		// TODO falta mostrar la letra de la cancion
 	                		
 	                	}else{
-	                		Playlist playlistSeleccionada = listaPlaylist.get(jTable.convertRowIndexToModel(row)-listaCanciones.size());
-	                		app.cambiarPanelVerPlaylist(user, playlistSeleccionada, playlistSeleccionada);
+	                		Playlist playlistSeleccionada1 = listaPlaylist.get(jTable.convertRowIndexToModel(row)-listaCanciones.size());
+	                		app.cambiarPanelVerPlaylist(user, playlistSeleccionada1, playlistSeleccionada);
 	                	}
                 	}else {
-                		Playlist playlistSeleccionada = listaPlaylist.get(jTable.convertRowIndexToModel(row));
-        		        app.cambiarPanelVerPlaylist(user, playlistSeleccionada, playlistSeleccionada);
+                		Playlist playlistSeleccionada1 = listaPlaylist.get(jTable.convertRowIndexToModel(row));
+        		        app.cambiarPanelVerPlaylist(user, playlistSeleccionada1, playlistSeleccionada);
                 	}
                 }else {
                 	JOptionPane.showMessageDialog(null, "Selecciona alguna playlist");

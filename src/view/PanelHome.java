@@ -87,7 +87,7 @@ public class PanelHome extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		Component component = (Component) e.getSource();
 		        App app = (App) SwingUtilities.getRoot(component);
-		        app.mostrarLogin();
+		        app.mostrarPanelDespedida(user);
         	}
         });
         btnLogout.setBounds(328, -2, 117, 29);
@@ -173,6 +173,16 @@ public class PanelHome extends JPanel {
         });
         btnRemove.setBounds(283, 224, 129, 29);
         add(btnRemove);
+        
+        JButton btnNewButton = new JButton("importar XML");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		controller.importarXML();
+        	}
+        });
+        btnNewButton.setBounds(172, 306, 117, 29);
+        add(btnNewButton);
     }
 
     private DefaultTableModel generarModelo(List<Playlist> listaPlaylist) {

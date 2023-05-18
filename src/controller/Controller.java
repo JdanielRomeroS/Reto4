@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -10,6 +11,8 @@ import java.util.regex.Pattern;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
@@ -113,7 +116,7 @@ public class Controller implements IController{
 			
 		}
 		
-		return usuariologed;
+		return null;
 		
 	}
 	
@@ -279,7 +282,7 @@ public class Controller implements IController{
         return matcher.matches();
 	}
 
-	public static boolean verificarComplejidadContrasena(String contrasena) {
+	public boolean verificarComplejidadContrasena(String contrasena) {
 	    int longitudMinima = 8;
 	    boolean tieneMayuscula = false;
 	    boolean tieneMinuscula = false;
@@ -301,11 +304,79 @@ public class Controller implements IController{
 	    return tieneMayuscula && tieneMinuscula && tieneDigito;
 	}
 
-	public static boolean compararContrasenas(String contrasena1, String contrasena2) {
+	public boolean compararContrasenas(String contrasena1, String contrasena2) {
 	    return contrasena1.equals(contrasena2);
 	}
 
+	public boolean regitrarUsuario(User user) {
+		
+		return UserRepository.addUser(user);
+		
+	}
 
+	public boolean addSongToPlaylist(Song songSeleccionada, Playlist playlistSeleccionada) {
+		
+		return PlaylistRepository.addSongToPlaylist(songSeleccionada,playlistSeleccionada);
+	}
+
+	
+	public int importarXML() {
+		int idPlaylistXML = 0;
+			
+		try {
+            SAXBuilder builder = new SAXBuilder();
+            Document document = builder.build("reproductor.xml"); 
+            Element rootElement = document.getRootElement();
+            Element playlistElement = rootElement.getChild("playlist");
+            
+            String idPlaylist = playlistElement.getChildText("id");
+            String nombrePlaylist = playlistElement.getChildText("nombre");
+            String anoLanzamiento = playlistElement.getChildText("anoLanzamiento");
+            String descripcion = playlistElement.getChildText("descripcion");
+            String duracionPlaylist = playlistElement.getChildText("duracion");
+            String idUser = playlistElement.getChildText("iduser");
+            
+            System.out.println("ID de la playlist: " + idPlaylist);
+            System.out.println("Nombre de la playlist: " + nombrePlaylist);
+            System.out.println("Año de lanzamiento: " + anoLanzamiento);
+            System.out.println("Descripción: " + descripcion);
+            System.out.println("Duración de la playlist: " + duracionPlaylist);
+            System.out.println("ID del usuario: " + idUser);
+            System.out.println("-----------------------");
+            
+            idPlaylistXML = Integer.parseInt(idPlaylist);
+            
+            Element songsElement = playlistElement.getChild("songs");
+            
+            // Recorrer las canciones de la playlist
+            for (Element songElement : songsElement.getChildren("song")) {
+            	String idCancion = songElement.getChildText("id");
+                String nombreCancion = songElement.getChildText("nombre");
+                String duracionCancion = songElement.getChildText("duracion");
+                String generoCancion = songElement.getChildText("genero");
+                
+                System.out.println("Id de la canción: " + idCancion);
+                System.out.println("Nombre de la canción: " + nombreCancion);
+                System.out.println("Duración de la canción: " + duracionCancion);
+                System.out.println("Género de la canción: " + generoCancion);
+                
+                Element artistsElement = songElement.getChild("artists");
+                
+                // Recorrer los artistas de la canción
+                for (Element artistElement : artistsElement.getChildren("artist")) {
+                    String nombreArtista = artistElement.getChildText("nombre");
+                    System.out.println("Nombre del artista: " + nombreArtista);
+                }
+                
+                System.out.println("-----------------------");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+			
+		return idPlaylistXML;
+	}
 	 
 	 
 }
